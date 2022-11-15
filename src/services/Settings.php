@@ -10,6 +10,7 @@ namespace enupal\socializer\services;
 
 use Craft;
 use craft\db\Query;
+use craft\helpers\UrlHelper;
 use yii\base\Component;
 use enupal\socializer\models\Settings as SettingsModel;
 use enupal\socializer\Socializer;
@@ -47,15 +48,7 @@ class Settings extends Component
      */
     public function getPrimarySiteUrl()
     {
-        $primarySite = (new Query())
-            ->select(['baseUrl'])
-            ->from(['{{%sites}}'])
-            ->where(['primary' => 1])
-            ->one();
-
-        $primarySiteUrl = Craft::getAlias($primarySite['baseUrl']);
-
-        return Craft::parseEnv(Craft::getAlias(rtrim(trim($primarySiteUrl), "/")));
+        return UrlHelper::baseSiteUrl();
     }
 
     /**
@@ -63,7 +56,7 @@ class Settings extends Component
      */
     public function getCallbackUrl()
     {
-        return $this->getPrimarySiteUrl()."/socializer/login/callback";
+        return $this->getPrimarySiteUrl()."socializer/login/callback";
     }
 
     /**
