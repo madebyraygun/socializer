@@ -61,10 +61,7 @@ class Settings extends Component
         $baseUrl = $this->getPrimarySiteUrl();
         $settings = $this->getSettings();
         if (!empty($settings->siteUrl)) {
-            $settingsBaseUrl = rtrim(trim(App::parseEnv($settings->siteUrl), "/"));
-            if (UrlHelper::isProtocolRelativeUrl($settingsBaseUrl)) {
-                $baseUrl = $settingsBaseUrl;
-            }
+            $baseUrl = rtrim(trim(App::parseEnv($settings->siteUrl), "/"));
         }
 
         return $baseUrl."/socializer/login/callback";
